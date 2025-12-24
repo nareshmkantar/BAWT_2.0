@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BAWT Login - Secure access to Budget Allocation Workflow Tool">
+    <title>Login - BAWT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+        }
+
+        .login-card {
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto var(--space-6);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .login-title {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-2);
+        }
+
+        .login-subtitle {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-8);
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: var(--space-6) 0;
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--color-border);
+        }
+
+        .divider span {
+            padding: 0 var(--space-4);
+        }
+
+        .sso-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            padding: var(--space-4);
+            background: var(--color-bg-glass);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .sso-btn:hover {
+            background: var(--color-bg-tertiary);
+            border-color: var(--color-border-accent);
+        }
+
+        .role-selector {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+
+        .role-option {
+            flex: 1;
+            padding: var(--space-4);
+            background: var(--color-bg-glass);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-align: center;
+        }
+
+        .role-option:hover {
+            border-color: var(--color-border-accent);
+        }
+
+        .role-option.selected {
+            border-color: var(--color-primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .role-option-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .role-option-title {
+            font-weight: var(--font-weight-medium);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-logo">B</div>
+            <h1 class="login-title">Welcome to <span class="text-gradient">BAWT</span></h1>
+            <p class="login-subtitle">Budget Allocation Workflow Tool</p>
+
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="you@kantar.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: var(--space-2);">
+                    <label class="form-label">Select Role</label>
+                </div>
+                <div class="role-selector">
+                    <div class="role-option selected" data-role="manager" onclick="selectRole(this)">
+                        <div class="role-option-icon">👔</div>
+                        <div class="role-option-title">Manager</div>
+                    </div>
+                    <div class="role-option" data-role="analyst" onclick="selectRole(this)">
+                        <div class="role-option-icon">📈</div>
+                        <div class="role-option-title">Analyst</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                    Sign In
+                </button>
+
+                <div class="divider"><span>or continue with</span></div>
+
+                <button type="button" class="sso-btn" onclick="handleSSO()">
+                    🔐 Enterprise SSO
+                </button>
+            </form>
+
+            <p style="margin-top: var(--space-6); font-size: var(--font-size-sm); color: var(--color-text-muted);">
+                [PLACEHOLDER: Authentication integration required]
+            </p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script>
+        let selectedRole = 'manager';
+
+        function selectRole(el) {
+            document.querySelectorAll('.role-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedRole = el.dataset.role;
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // PLACEHOLDER: Replace with actual login
+            console.log('[PLACEHOLDER] Login:', { email, role: selectedRole });
+
+            try {
+                const result = await API.login(email, password);
+                if (result.success) {
+                    localStorage.setItem('bawt_token', result.token);
+                    localStorage.setItem('bawt_user', JSON.stringify(result.user));
+                    window.location.href = 'index.html';
+                }
+            } catch (err) {
+                Components.showToast('Login failed. Please try again.', 'error');
+            }
+        }
+
+        async function handleSSO() {
+            console.log('[PLACEHOLDER] SSO Login initiated');
+            Components.showToast('[PLACEHOLDER] SSO integration required', 'info');
+
+            // Simulate SSO for demo
+            try {
+                const result = await API.ssoLogin();
+                if (result.success) {
+                    localStorage.setItem('bawt_token', result.token);
+                    localStorage.setItem('bawt_user', JSON.stringify(result.user));
+                    window.location.href = 'index.html';
+                }
+            } catch (err) {
+                Components.showToast('SSO login failed.', 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>
