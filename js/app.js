@@ -1988,7 +1988,7 @@ const App = {
           <span class="panel-title" style="margin:0;border:none;padding:0;">Response Curves & Parameters</span>
           <span class="text-muted">curves_workspace_internal.csv</span>
         </div>
-        <p class="text-muted mb-3">Response functions fᵢ(xᵢ,ₜ; θᵢ) defining how spend translates to outcomes using tanh curves.</p>
+        <p class="text-muted mb-3">Response functions defining how spend translates to outcomes using tanh curves.</p>
         <div class="table-container" style="max-height:400px;overflow:auto;">
           <table class="table">
             <thead>
@@ -2030,7 +2030,7 @@ const App = {
           <span class="panel-title" style="margin:0;border:none;padding:0;">Weekly Budget/Spend (Decision Variables)</span>
           <span class="text-muted">budget_workspace.csv</span>
         </div>
-        <p class="text-muted mb-3">Weekly spend values xᵢ,ₜ that the optimizer adjusts to maximize the objective.</p>
+        <p class="text-muted mb-3">Weekly spend values that the optimizer adjusts to maximize the objective.</p>
         <div class="table-container" style="overflow-x:auto;">
           <table class="table weekly-grid">
             <thead>
@@ -2084,7 +2084,7 @@ const App = {
           <span class="panel-title" style="margin:0;border:none;padding:0;">Weekly Constraints (Min/Max Bounds)</span>
           <span class="text-muted">constraints_workspace.csv</span>
         </div>
-        <p class="text-muted mb-3">Business rules: Lᵢ,ₜ ≤ xᵢ,ₜ ≤ Uᵢ,ₜ ensuring feasible optimization solutions.</p>
+        <p class="text-muted mb-3">Business rules defining min/max spend bounds ensuring feasible optimization solutions.</p>
         <div class="flex gap-2 mb-3">
           <span class="badge badge-success">Max</span> Maximum spend allowed
           <span class="badge badge-info">Min</span> Minimum spend required
@@ -2178,7 +2178,7 @@ const App = {
           <span class="panel-title" style="margin:0;border:none;padding:0;">Weekly Curve Weights (Seasonality)</span>
           <span class="text-muted">weights_workspace.csv</span>
         </div>
-        <p class="text-muted mb-3">Seasonality multipliers wᵢ,ₜ applied to the objective function. Values typically range 0.5-2.0.</p>
+        <p class="text-muted mb-3">Seasonality multipliers applied to the objective function. Values typically range 0.5-2.0.</p>
         <div class="flex gap-2 mb-3">
           <span class="weight-legend low">0.5-0.9 (Low)</span>
           <span class="weight-legend normal">1.0 (Normal)</span>
